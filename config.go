@@ -504,13 +504,15 @@ func saveToFile(bytes []byte, conf *conf) error {
 	_, err = file.Write(bytes)
 	return err
 }
+
+
 func getDir(conf *conf) string {
 	switch runtime.GOOS {
 	case "windows":
 		return fmt.Sprintf("C:\\config\\%s\\config-cache", conf.appId)
 	default:
-		return fmt.Sprintf("/data/config/%s/config-cache",
-			conf.appId)
+		return fmt.Sprintf("%s/config/%s/config-cache",
+			metaServer.DataDir, conf.appId)
 	}
 }
 func getFileName(conf *conf) string {
@@ -519,7 +521,7 @@ func getFileName(conf *conf) string {
 		return fmt.Sprintf("C:\\config\\%s\\config-cache\\%s+%s+%s.properties", conf.appId,
 			conf.appId, conf.cluster, conf.namespace)
 	default:
-		return fmt.Sprintf("/data/config/%s/config-cache/%s+%s+%s.properties",
-			conf.appId, conf.appId, conf.cluster, conf.namespace)
+		return fmt.Sprintf("%s/config/%s/config-cache/%s+%s+%s.properties",
+			metaServer.DataDir, conf.appId, conf.appId, conf.cluster, conf.namespace)
 	}
 }

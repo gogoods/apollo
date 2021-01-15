@@ -15,9 +15,12 @@ func getInst() (*Config, error) {
 		UAT: "http://uat.apollo.config.com",
 		PRO: "http://fat.apollo.config.com",
 	})
+
 	if err != nil {
 		return nil, err
 	}
+
+
 	err = start("test", ENV_DEV)
 	if err != nil {
 		return nil, err

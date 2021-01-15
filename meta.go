@@ -24,12 +24,16 @@ type MetaServerConfig struct {
 	FAT string
 	UAT string
 	PRO string
+	DataDir string //仅对非win系统有有效，默认/data
 }
 
 var metaServer *MetaServerConfig
 func SetMetaServer(c *MetaServerConfig) error{
 	if c.DEV == ""|| c.FAT == "" || c.UAT == "" || c.PRO == ""{
 		return fmt.Errorf("invalid meta server")
+	}
+	if c.DataDir == ""{
+		c.DataDir = "/data"
 	}
 	metaServer = c
 	return nil
